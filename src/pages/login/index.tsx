@@ -1,14 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  Alert,
   Box,
   Button,
   Center,
   PasswordInput,
   Stack,
+  Text,
   TextInput,
 } from "@mantine/core";
+import { IconExclamationCircle } from "@tabler/icons-react";
+import { isAxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useLogin } from "~/features/auth/login";
 
 interface LoginForm {
   username: string;
@@ -29,10 +34,16 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: yupResolver(loginFormSchema),
+    defaultValues: {
+      username: "johnd",
+      password: "m38rmF$",
+    },
   });
 
-  const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    console.log(data);
+  const { mutate: login, isLoading, error } = useLogin();
+
+  const onSubmit: SubmitHandler<LoginForm> = ({ password, username }) => {
+    login({ password, username });
   };
 
   return (
@@ -44,18 +55,33 @@ export const LoginPage = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Stack>
-          {errors.root?.message}
+          {isAxiosError(error) && typeof error.response?.data === "string" && (
+            <Alert
+              variant="outline"
+              color="red"
+              title="Failed login attempt"
+              icon={<IconExclamationCircle />}
+            >
+              <Text tt="capitalize" span>
+                {error.response.data}
+              </Text>
+            </Alert>
+          )}
           <TextInput
             placeholder="Username"
             {...register("username")}
+            disabled={isLoading}
             error={errors.username?.message}
           />
           <PasswordInput
             placeholder="Password"
             {...register("password")}
+            disabled={isLoading}
             error={errors.password?.message}
           />
-          <Button type="submit">Login</Button>
+          <Button type="submit" loading={isLoading}>
+            Login
+          </Button>
         </Stack>
       </Box>
     </Center>

@@ -1,47 +1,23 @@
-import { createTheme, MantineProvider } from "@mantine/core";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    async lazy() {
-      const { MainLayout } = await import("~/layouts/main");
-      return { Component: MainLayout };
-    },
-    children: [
-      {
-        index: true,
-        async lazy() {
-          const { ProductsPage } = await import("~/pages/products");
-          return { Component: ProductsPage };
-        },
-      },
-      {
-        path: "/:productId",
-        async lazy() {
-          const { ProductPage } = await import("~/pages/product");
-          return { Component: ProductPage };
-        },
-      },
-      {
-        path: "/login",
-        async lazy() {
-          const { LoginPage } = await import("~/pages/login");
-          return { Component: LoginPage };
-        },
-      },
-    ],
-  },
-]);
-
-const theme = createTheme({});
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useIsAuth } from "~/entities/session";
+import { MantineProvider, QueryProvider, RouterProvider } from "./providers";
 
 export function App() {
+  const [cookies] = useCookies(["token"]);
+  const { setIsAuth } = useIsAuth();
+
+  useEffect(() => {
+    if (cookies.token) {
+      setIsAuth(true);
+    }
+  }, [cookies.token, setIsAuth]);
+
   return (
-    <>
-      <MantineProvider theme={theme}>
-        <RouterProvider router={router} />
-      </MantineProvider>
-    </>
+    <MantineProvider>
+      <QueryProvider>
+        <RouterProvider />
+      </QueryProvider>
+    </MantineProvider>
   );
 }
