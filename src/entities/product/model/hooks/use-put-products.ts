@@ -1,18 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Product, api } from "~/shared/api";
 import { queryKeys } from "../query-keys";
-import { api } from "~/shared/api";
 
-export const useDeleteProduct = (productId: string) => {
+export const usePutProduct = (productId: string) => {
   const queryClient = useQueryClient();
 
   // We need to make sure that all products are already loaded, because otherwise the changes will not be reflected on them
-  queryClient.ensureQueryData({
+  queryClient.prefetchQuery({
     queryKey: queryKeys.GET_PRODUCTS(),
     queryFn: () => api.product.getAllProducts(),
   });
 
   return useMutation({
-    mutationKey: queryKeys.DELETE_PRODUCT(productId),
-    mutationFn: () => api.product.deleteProduct(productId),
+    mutationKey: queryKeys.UPDATE_PRODUCT(productId),
+    mutationFn: (product: Product) =>
+      api.product.putProduct(productId, product),
   });
 };

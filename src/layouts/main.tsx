@@ -49,9 +49,9 @@ export const MainLayout = () => {
         </Group>
       </AppShell.Header>
       {isAuth && (
-        <AppShell.Navbar py="md" px={4}>
+        <AppShell.Navbar py="md" hiddenFrom="sm" px={4}>
           {isAuth && (
-            <Stack>
+            <Stack mx="md">
               <AddProduct />
               <Button variant="filled" color="red" onClick={() => logout()}>
                 Logout

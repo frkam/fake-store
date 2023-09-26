@@ -1,6 +1,5 @@
 import {
   Badge,
-  Button,
   Center,
   Container,
   Flex,
@@ -11,10 +10,10 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconEdit } from "@tabler/icons-react";
 import { Navigate, useParams } from "react-router-dom";
 import { useProduct } from "~/entities/product";
 import { DeleteProduct } from "~/features/products/delete";
+import { EditProduct } from "~/features/products/edit";
 import { routes } from "~/shared/routing";
 
 type Params = {
@@ -60,9 +59,7 @@ export const ProductPage = () => {
               </Text>
             </Badge>
             <Group>
-              <Button color="blue">
-                <IconEdit />
-              </Button>
+              <EditProduct productId={data.id} product={data} />
               <DeleteProduct productId={data.id} />
             </Group>
           </Stack>

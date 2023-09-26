@@ -33,10 +33,19 @@ const deleteProduct = async (productId: string) => {
   return response.data;
 };
 
+const putProduct = async (productId: string, product: Product) => {
+  const response = await api.put<Product>(`/products/${productId}`, {
+    ...product,
+  });
+
+  return response.data;
+};
+
 export {
   getAllProducts,
   getProduct,
   postProduct,
   getAllCategories,
+  putProduct,
   deleteProduct,
 };
