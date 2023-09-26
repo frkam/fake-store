@@ -10,6 +10,7 @@ const router = createBrowserRouter([
     path: "/",
     async lazy() {
       const { MainLayout } = await import("~/layouts/main");
+
       return { Component: MainLayout };
     },
     children: [
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
             index: true,
             async lazy() {
               const { ProductsPage } = await import("~/pages/products");
+
               return { Component: ProductsPage };
             },
           },
@@ -27,6 +29,7 @@ const router = createBrowserRouter([
             path: "/:productId",
             async lazy() {
               const { ProductPage } = await import("~/pages/product");
+
               return { Component: ProductPage };
             },
           },
@@ -39,6 +42,7 @@ const router = createBrowserRouter([
             path: "/login",
             async lazy() {
               const { LoginPage } = await import("~/pages/login");
+
               return { Component: LoginPage };
             },
           },
