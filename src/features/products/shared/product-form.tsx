@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Stack } from "@mantine/core";
+import { Button, Loader, Stack } from "@mantine/core";
 import { IconLink } from "@tabler/icons-react";
 import { useForm } from "react-hook-form";
 import {
@@ -51,8 +51,6 @@ export const ProductForm = ({
     resolver: yupResolver(productSchema),
   });
 
-  console.log(defaultValues);
-
   const { data: categories, isLoading: isCategoriesLoading } = useCategories();
 
   return (
@@ -86,14 +84,18 @@ export const ProductForm = ({
           name="image"
           control={control}
         />
-        <Select
-          label="Category"
-          disabled={isCategoriesLoading}
-          name="category"
-          control={control}
-          data={categories}
-          required
-        />
+        {!isCategoriesLoading ? (
+          <Select
+            label="Category"
+            disabled={isCategoriesLoading}
+            name="category"
+            control={control}
+            data={categories}
+            required
+          />
+        ) : (
+          <Loader />
+        )}
         <Button type="submit" color="blue" loading={isLoading}>
           {submitText}
         </Button>

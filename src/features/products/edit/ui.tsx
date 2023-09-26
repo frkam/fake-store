@@ -24,7 +24,6 @@ export const EditProduct = ({
       { id: productId, ...data },
       {
         onSuccess: (newProduct) => {
-          console.log(newProduct);
           cache.updateInCache(newProduct);
           notifications.show({
             title: "Success",
