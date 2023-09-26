@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useIsAuth } from "~/entities/session/model";
-import { auth } from "~/shared/api/internal";
+import { api } from "~/shared/api";
 import { routes } from "~/shared/routing";
 
 export const useLogin = () => {
@@ -18,7 +18,9 @@ export const useLogin = () => {
     { username: string; password: string },
     unknown
   >({
-    mutationFn: ({ username, password }) => auth.login({ username, password }),
+    mutationKey: ["auth"],
+    mutationFn: ({ username, password }) =>
+      api.auth.login({ username, password }),
     onSuccess: (data) => {
       setCookie("token", data.token);
       setIsAuth(true);

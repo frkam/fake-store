@@ -1,3 +1,4 @@
+import { Box, Center, Loader } from "@mantine/core";
 import {
   RouterProvider as ExternalRouterProvider,
   createBrowserRouter,
@@ -43,10 +44,29 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "not-found",
+        async lazy() {
+          const { NotFoundPage } = await import("~/pages/not-found");
+
+          return { Component: NotFoundPage };
+        },
+      },
     ],
   },
 ]);
 
 export const RouterProvider = () => {
-  return <ExternalRouterProvider router={router} />;
+  return (
+    <ExternalRouterProvider
+      router={router}
+      fallbackElement={
+        <Box h="100vh" w="100vw">
+          <Center h="100%">
+            <Loader />
+          </Center>
+        </Box>
+      }
+    />
+  );
 };

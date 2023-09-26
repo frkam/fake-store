@@ -1,4 +1,4 @@
-import { internalApi } from "~/shared/api/internal/base";
+import { api } from "~/shared/api/base";
 
 const login = async ({
   username,
@@ -7,7 +7,7 @@ const login = async ({
   username: string;
   password: string;
 }) => {
-  const response = await internalApi.post("/auth/login", {
+  const response = await api.post<{ token: string }>("/auth/login", {
     username,
     password,
   });

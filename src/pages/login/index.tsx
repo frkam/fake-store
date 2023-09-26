@@ -1,39 +1,28 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  Alert,
-  Box,
-  Button,
-  Center,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Alert, Box, Button, Center, Stack, Text } from "@mantine/core";
 import { IconExclamationCircle } from "@tabler/icons-react";
 import { isAxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { PasswordInput, TextInput } from "react-hook-form-mantine";
 import * as yup from "yup";
 import { useLogin } from "~/features/auth/login";
 
-interface LoginForm {
-  username: string;
-  password: string;
-}
-
-const loginFormSchema = yup
+const loginSchema = yup
   .object({
-    username: yup.string().required("Username is a required field"),
-    password: yup.string().required("Password is a required field"),
+    username: yup.string().required(),
+    password: yup.string().required(),
   })
   .required();
 
+type LoginForm = yup.InferType<typeof loginSchema>;
+
 export const LoginPage = () => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>({
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(loginSchema),
     defaultValues: {
       username: "johnd",
       password: "m38rmF$",
@@ -52,6 +41,7 @@ export const LoginPage = () => {
         component="form"
         maw={320}
         w="100%"
+        noValidate
         onSubmit={handleSubmit(onSubmit)}
       >
         <Stack>
@@ -68,14 +58,18 @@ export const LoginPage = () => {
             </Alert>
           )}
           <TextInput
-            placeholder="Username"
-            {...register("username")}
+            label="Username"
+            name="username"
+            control={control}
+            required
             disabled={isLoading}
             error={errors.username?.message}
           />
           <PasswordInput
-            placeholder="Password"
-            {...register("password")}
+            label="Password"
+            name="password"
+            control={control}
+            required
             disabled={isLoading}
             error={errors.password?.message}
           />

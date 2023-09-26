@@ -1,13 +1,6 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
+import { queryClient } from "~/shared/lib/react-query";
 
 export const QueryProvider = ({ children }: { children: ReactNode }) => (
   <>
