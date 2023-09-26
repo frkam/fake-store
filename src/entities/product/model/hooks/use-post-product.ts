@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { Product, api } from "~/shared/api";
-import { queryKeys } from "./query-keys";
+import { queryKeys } from "../query-keys";
 
 export const usePostProduct = () => {
   return useMutation({

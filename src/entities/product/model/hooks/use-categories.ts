@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "~/shared/api";
-import { queryKeys } from "./query-keys";
+import { queryKeys } from "../query-keys";
 
 export const useCategories = () => {
   return useQuery({

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { queryKeys } from "./query-keys";
+import { queryKeys } from "../query-keys";
 import { api } from "~/shared/api";
 
 export const useDeleteProduct = (productId: string) => {

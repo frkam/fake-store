@@ -63,7 +63,7 @@ export const AddProduct = () => {
 
   return (
     <Box>
-      <Button color="blue" onClick={open}>
+      <Button color="blue" onClick={open} w="100%">
         Add product
       </Button>
       <Modal opened={opened} onClose={close} title="Add product">

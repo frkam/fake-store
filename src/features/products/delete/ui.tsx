@@ -4,7 +4,7 @@ import { notifications } from "@mantine/notifications";
 import { IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { deleteFromCache } from "~/entities/product/model/cache";
-import { useDeleteProduct } from "~/entities/product/model/use-delete-product";
+import { useDeleteProduct } from "~/entities/product/model/hooks/use-delete-product";
 import { routes } from "~/shared/routing";
 
 export const DeleteProduct = ({ productId }: { productId: string }) => {

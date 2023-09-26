@@ -1,6 +1,5 @@
 import {
   Badge,
-  Box,
   Button,
   Center,
   Container,
@@ -42,7 +41,7 @@ export const ProductPage = () => {
     <Center>
       <Container>
         <Flex gap={32} direction={{ base: "column", lg: "row" }}>
-          <Box h={{ base: 320, lg: "100%" }}>
+          <Center h={{ base: 320, lg: "100%" }}>
             <Image
               src={data.image}
               alt={data.title}
@@ -50,7 +49,7 @@ export const ProductPage = () => {
               w={265}
               h="auto"
             />
-          </Box>
+          </Center>
           <Stack>
             <Badge>{data.category}</Badge>
             <Title order={3}>{data.title}</Title>
