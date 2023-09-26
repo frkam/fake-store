@@ -41,7 +41,7 @@ export const DeleteProduct = ({ productId }: { productId: string }) => {
           zIndex={1000}
           overlayProps={{ radius: "sm", blur: 2 }}
         />
-        <Button color="red" onClick={onDeleteClick} data-autoFocus>
+        <Button color="red" onClick={onDeleteClick} data-autofocus>
           Delete
         </Button>
       </Modal>

@@ -79,7 +79,7 @@ export const AddProduct = () => {
               name="title"
               required
               control={control}
-              data-autoFocus
+              data-autofocus
             />
             <NumberInput
               label="Price"
