@@ -3,3 +3,5 @@ Installation
 
 Development
 `pnpm dev`
+
+Deployment: https://fake-store-even-uxxds22tb-frkam.vercel.app
