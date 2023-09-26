@@ -4,4 +4,4 @@ Installation
 Development
 `pnpm dev`
 
-Deployment: https://fake-store-bt8pr3adg-frkam.vercel.app/login
+Deployment: https://fake-store-frkam.vercel.app/
