@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 interface IsAuth {
-  isAuth: boolean;
+  isAuth: boolean | null;
   setIsAuth: (isAuth: boolean) => void;
 }
 
 export const useIsAuth = create<IsAuth>((set) => ({
-  isAuth: false,
+  isAuth: null,
   setIsAuth: (isAuth: boolean) => set(() => ({ isAuth })),
 }));
