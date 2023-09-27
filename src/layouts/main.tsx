@@ -1,5 +1,17 @@
-import { AppShell, Burger, Button, Group, Stack, Title } from "@mantine/core";
+import {
+  AppShell,
+  Box,
+  Burger,
+  Button,
+  Center,
+  Group,
+  Loader,
+  Stack,
+  Title,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { NavLink, Outlet } from "react-router-dom";
 import { useIsAuth } from "~/entities/session";
 import { useLogout } from "~/features/auth/logout";
@@ -7,10 +19,29 @@ import { AddProduct } from "~/features/products/add";
 import { routes } from "~/shared/routing";
 
 export const MainLayout = () => {
-  const { isAuth } = useIsAuth();
+  const [cookies] = useCookies(["token"]);
+  const { setIsAuth, isAuth } = useIsAuth();
+  const logout = useLogout();
   const [opened, { toggle }] = useDisclosure();
 
-  const logout = useLogout();
+  useEffect(() => {
+    if (isAuth === null) {
+      if (cookies.token) {
+        setIsAuth(true);
+      } else {
+        setIsAuth(false);
+      }
+    }
+  }, [cookies.token, setIsAuth, isAuth]);
+
+  if (isAuth === null)
+    return (
+      <Box h="100vh" w="100vw">
+        <Center h="100%">
+          <Loader />
+        </Center>
+      </Box>
+    );
 
   return (
     <AppShell
