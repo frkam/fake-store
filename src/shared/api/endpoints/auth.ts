@@ -1,4 +1,4 @@
-import { api } from "~/shared/api/base";
+import { api } from "../base";
 
 const login = async ({
   username,

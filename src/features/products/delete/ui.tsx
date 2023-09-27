@@ -3,8 +3,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { deleteFromCache } from "~/entities/product/model/cache";
-import { useDeleteProduct } from "~/entities/product/model/hooks/use-delete-product";
+import { cache } from "~/entities/product";
+import { useDeleteProduct } from "~/entities/product/model";
 import { routes } from "~/shared/routing";
 
 export const DeleteProduct = ({ productId }: { productId: string }) => {
@@ -15,7 +15,7 @@ export const DeleteProduct = ({ productId }: { productId: string }) => {
   const { mutate, isLoading } = useDeleteProduct(productId);
 
   const onDeleteClick = () => {
-    deleteFromCache(productId);
+    cache.deleteFromCache(productId);
     mutate();
     navigate(routes.main);
     notifications.show({

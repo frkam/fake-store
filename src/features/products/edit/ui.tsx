@@ -4,7 +4,7 @@ import { cache } from "~/entities/product";
 import { SubmitHandler } from "react-hook-form";
 import { ProductForm } from "../shared/product-form";
 import { IconEdit } from "@tabler/icons-react";
-import { usePutProduct } from "~/entities/product/model/hooks/use-put-products";
+import { usePutProduct } from "~/entities/product";
 import { Product } from "~/shared/api";
 import { notifications } from "@mantine/notifications";
 
@@ -28,6 +28,8 @@ export const EditProduct = ({
           notifications.show({
             title: "Success",
             message: "The product has been successfully edited",
+            withCloseButton: true,
+            autoClose: 5000,
           });
           close();
         },

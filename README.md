@@ -18,5 +18,5 @@ Deployment: https://fake-store-frkam.vercel.app/
 
 ### FAQ
 
-Why didn't i use loaders and other RR v6 abstractions?
-1. According to technical spec, i am required to use custom hooks that return the result from Tanstack Query. With this approach, I couldn't use loaders from RR with defer, because [it's impossible to use react hooks in loaders](https://github.com/remix-run/react-router/discussions/9246).
+1. Why didn't i use loaders and other RR v6 abstractions?<br>
+According to technical spec, i am required to use custom hooks that return the result from Tanstack Query. With this approach, I can't use loaders from RR with defer, because [it's impossible to use react hooks in loaders](https://github.com/remix-run/react-router/discussions/9246).
