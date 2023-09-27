@@ -40,7 +40,7 @@ export const ProductPage = () => {
     <Center>
       <Container>
         <Flex gap={32} direction={{ base: "column", lg: "row" }}>
-          <Center h={{ base: 320, lg: "100%" }}>
+          <Center>
             <Image
               src={data.image}
               alt={data.title}
