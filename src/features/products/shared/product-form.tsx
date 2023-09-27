@@ -1,7 +1,7 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Loader, Stack } from "@mantine/core";
 import { IconLink } from "@tabler/icons-react";
-import { useForm } from "react-hook-form";
+import { FormEventHandler } from "react";
+import { Control } from "react-hook-form";
 import {
   NumberInput,
   Select,
@@ -11,7 +11,7 @@ import {
 import * as yup from "yup";
 import { useCategories } from "~/entities/product";
 
-const productSchema = yup
+export const productSchema = yup
   .object({
     title: yup.string().required().min(2).max(120),
     price: yup
@@ -28,33 +28,24 @@ const productSchema = yup
 export type ProductForm = yup.InferType<typeof productSchema>;
 
 type ProductFormProps = {
+  disabled?: boolean;
   isLoading: boolean;
-  onSubmit: (data: ProductForm) => void;
-  defaultValues: {
-    title?: string;
-    price?: number;
-    description?: string;
-    image?: string;
-    category?: string;
-  };
+  onSubmit: FormEventHandler<HTMLFormElement>;
   submitText: string;
+  control: Control<ProductForm>;
 };
 
 export const ProductForm = ({
   isLoading,
   onSubmit,
-  defaultValues,
+  disabled,
+  control,
   submitText,
 }: ProductFormProps) => {
-  const { handleSubmit, control } = useForm<ProductForm>({
-    defaultValues,
-    resolver: yupResolver(productSchema),
-  });
-
   const { data: categories, isLoading: isCategoriesLoading } = useCategories();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={onSubmit} noValidate>
       <Stack>
         <TextInput
           label="Title"
@@ -96,7 +87,12 @@ export const ProductForm = ({
         ) : (
           <Loader />
         )}
-        <Button type="submit" color="blue" loading={isLoading}>
+        <Button
+          type="submit"
+          color="blue"
+          loading={isLoading}
+          disabled={disabled}
+        >
           {submitText}
         </Button>
       </Stack>

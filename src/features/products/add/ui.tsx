@@ -1,19 +1,29 @@
 import { Box, Button, LoadingOverlay, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { cache, usePostProduct } from "~/entities/product";
-import { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { routes } from "~/shared/routing";
-import { ProductForm } from "../shared/product-form";
+import { ProductForm, productSchema } from "../shared/product-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const AddProduct = () => {
   const { mutate, isLoading } = usePostProduct();
+  const { handleSubmit, control } = useForm<ProductForm>({
+    resolver: yupResolver(productSchema),
+    defaultValues: {
+      title: "",
+      price: 0,
+      description: "",
+      image: "https://placehold.co/600x400/EEE/31343C",
+    },
+  });
 
   const [opened, { open, close }] = useDisclosure(false);
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<ProductForm> = (data) => {
+  const onSubmit = handleSubmit((data) => {
     mutate(data, {
       onSuccess: (product) => {
         const id = Date.now().toString();
@@ -23,7 +33,7 @@ export const AddProduct = () => {
         close();
       },
     });
-  };
+  });
 
   return (
     <Box>
@@ -37,15 +47,10 @@ export const AddProduct = () => {
           overlayProps={{ radius: "sm", blur: 2 }}
         />
         <ProductForm
+          control={control}
           isLoading={isLoading}
           onSubmit={onSubmit}
           submitText="Add product"
-          defaultValues={{
-            title: "",
-            price: 0,
-            description: "",
-            image: "https://placehold.co/600x400/EEE/31343C",
-          }}
         />
       </Modal>
     </Box>
