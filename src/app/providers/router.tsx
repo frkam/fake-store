@@ -56,6 +56,14 @@ const router = createBrowserRouter([
           return { Component: NotFoundPage };
         },
       },
+      {
+        path: "*",
+        async lazy() {
+          const { NotFoundPage } = await import("~/pages/not-found");
+
+          return { Component: NotFoundPage };
+        },
+      },
     ],
   },
 ]);
