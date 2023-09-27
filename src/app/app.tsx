@@ -10,6 +10,8 @@ export function App() {
   useEffect(() => {
     if (cookies.token) {
       setIsAuth(true);
+    } else {
+      setIsAuth(false);
     }
   }, [cookies.token, setIsAuth]);
 
