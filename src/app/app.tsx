@@ -13,7 +13,7 @@ export function App() {
     }
   }, [cookies.token, setIsAuth]);
 
-  if (isAuth === null) return;
+  if (isAuth === null) return null;
 
   return (
     <MantineProvider>
